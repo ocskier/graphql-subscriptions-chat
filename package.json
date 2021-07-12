@@ -1,0 +1,28 @@
+{
+  "name": "graphql-subscriptions-chat",
+  "version": "1.0.0",
+  "description": "Making a mock GraphQL with Subscriptions chat full-stack application MERN",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server/server.js",
+    "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && yarn start\"",
+    "install": "cd server && npm i && cd ../client && yarn install",
+    "build": "cd client && yarn run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ocskier/graphql-subscriptions-chat.git"
+  },
+  "keywords": [],
+  "author": "Jon Jackson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ocskier/graphql-subscriptions-chat/issues"
+  },
+  "homepage": "https://github.com/ocskier/graphql-subscriptions-chat#readme",
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "jest": "^27.0.6"
+  }
+}
