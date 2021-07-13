@@ -24,6 +24,9 @@ const schema = `
   type Mutation {
     postMessage(message: MessageContent): ResponseObject
   }
+  type Subscription {
+    messageAdded: Message
+  }
 `;
 
 export default schema;
