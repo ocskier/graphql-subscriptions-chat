@@ -1,8 +1,11 @@
 import { buildSchema, buildASTSchema } from 'graphql';
 
 const schema = `
+  type Message {
+    content: String
+  }
   type Query {
-    message: String
+    messages: [Message]
   }
 `;
 

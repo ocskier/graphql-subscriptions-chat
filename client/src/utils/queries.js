@@ -1,9 +1,11 @@
 import { gql } from '@apollo/client';
 
 const queries = {
-  HELLO: gql`
-    query hello {
-      message
+  ALL_MESSAGES: gql`
+    query getAllMessages {
+      messages {
+        content
+      }
     }
   `,
 };
