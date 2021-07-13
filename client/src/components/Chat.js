@@ -1,5 +1,6 @@
 import { Container } from 'semantic-ui-react';
 import { List } from 'semantic-ui-react';
+import { Button, Checkbox, Form } from 'semantic-ui-react';
 
 const styles = {
   chatListItem: {
@@ -19,6 +20,16 @@ export const Chat = ({ messages }) => {
             </List.Item>
           ))}
       </List>
+      <Form>
+        <Form.Field>
+          <label>Message</label>
+          <input placeholder="Chat Text" />
+        </Form.Field>
+        <Form.Field>
+          <Checkbox label="I agree to the Terms and Conditions" />
+        </Form.Field>
+        <Button type="submit">Submit</Button>
+      </Form>
     </Container>
   );
 };
