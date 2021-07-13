@@ -1,22 +1,16 @@
 import express from 'express';
 import morgan from 'morgan';
 import { graphqlHTTP } from 'express-graphql';
-import { buildSchema } from 'graphql';
+import { makeExecutableSchema } from 'graphql-tools';
+import typeDefs from './schema.js';
+import resolvers from './resolvers.js';
 
 const PORT = process.env.PORT || 4000;
 
-const schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`);
-
-const root = {
-  hello: () => {
-    console.log('Hello route!');
-    return 'Hello world!';
-  },
-};
+const schema = makeExecutableSchema({
+  typeDefs: typeDefs,
+  resolvers: resolvers,
+});
 
 const app = express();
 app.use(
@@ -32,7 +26,6 @@ app.use(
   '/graphql',
   graphqlHTTP({
     schema: schema,
-    rootValue: root,
     graphiql: true,
   })
 );

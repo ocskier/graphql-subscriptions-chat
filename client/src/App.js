@@ -1,23 +1,19 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
+import { useQuery } from '@apollo/client';
+import queries from './utils/queries';
+
 import './App.css';
 
 function App() {
+  const { HELLO } = queries;
+  const { loading, error, data } = useQuery(HELLO);
+  console.log(loading, error, data);
+  useEffect(() => {}, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error : {error.message}</p>}
+      {data && <p>{data.message}</p>}
     </div>
   );
 }
