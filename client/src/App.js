@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import queries from './utils/queries';
 
@@ -11,7 +10,7 @@ function App() {
   const { ALL_MESSAGES } = queries;
   const { loading, error, data } = useQuery(ALL_MESSAGES);
   console.log(loading, error, data);
-  useEffect(() => {}, []);
+
   return (
     <div className="App">
       {loading && <p>Loading...</p>}
