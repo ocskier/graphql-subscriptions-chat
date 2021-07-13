@@ -1,6 +1,9 @@
+import { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { Container } from 'semantic-ui-react';
 import { List } from 'semantic-ui-react';
 import { Button, Checkbox, Form } from 'semantic-ui-react';
+import mutations from '../utils/mutations';
 
 const styles = {
   chatCtn: {
@@ -20,6 +23,13 @@ const styles = {
 };
 
 export const Chat = ({ messages }) => {
+  const { POST_MESSAGE } = mutations;
+  const [message, setMessage] = useState('');
+  const [postMessage, { data }] = useMutation(POST_MESSAGE);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    postMessage({ variables: { message: { content: message } } });
+  };
   return (
     <Container style={styles.chatCtn}>
       <h3 style={styles.history}>History</h3>
@@ -32,10 +42,15 @@ export const Chat = ({ messages }) => {
             </List.Item>
           ))}
       </List>
-      <Form style={styles.form}>
+      <Form style={styles.form} onSubmit={submitHandler}>
         <Form.Field>
           <label>Message</label>
-          <input placeholder="Chat Text" />
+          <input
+            placeholder="Chat Text"
+            value={message}
+            name="message"
+            onChange={(e) => setMessage(e.target.value)}
+          />
         </Form.Field>
         <Form.Field>
           <Checkbox label="I agree to the Terms and Conditions" />
