@@ -34,13 +34,16 @@ export const Chat = ({ messages }) => {
     <Container style={styles.chatCtn}>
       <h3 style={styles.history}>History</h3>
       <List>
-        {messages.length &&
+        {messages.length ? (
           messages.map((message, index) => (
             <List.Item key={index} style={styles.chatListItem}>
               <List.Icon name="users" />
               <List.Content>{message.content}</List.Content>
             </List.Item>
-          ))}
+          ))
+        ) : (
+          <p>No messages to display!</p>
+        )}
       </List>
       <Form style={styles.form} onSubmit={submitHandler}>
         <Form.Field>
