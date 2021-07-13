@@ -3,14 +3,26 @@ import { List } from 'semantic-ui-react';
 import { Button, Checkbox, Form } from 'semantic-ui-react';
 
 const styles = {
+  chatCtn: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
   chatListItem: {
     maxWidth: '16rem',
+  },
+  form: {
+    marginTop: '4rem',
+  },
+  history: {
+    textDecoration: 'underline',
   },
 };
 
 export const Chat = ({ messages }) => {
   return (
-    <Container>
+    <Container style={styles.chatCtn}>
+      <h3 style={styles.history}>History</h3>
       <List>
         {messages.length &&
           messages.map((message, index) => (
@@ -20,7 +32,7 @@ export const Chat = ({ messages }) => {
             </List.Item>
           ))}
       </List>
-      <Form>
+      <Form style={styles.form}>
         <Form.Field>
           <label>Message</label>
           <input placeholder="Chat Text" />
