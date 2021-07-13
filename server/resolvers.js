@@ -1,8 +1,8 @@
 const resolvers = {
   Query: {
-    message: () => {
-      console.log('Hello route!');
-      return 'Hello world!';
+    messages: () => {
+      console.log('Returning all chat messages!');
+      return [{ content: 'Hello world!' }];
     },
   },
 };
