@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Making a mock GraphQL with Subscriptions chat full-stack application MERN",
   "main": "server/server.js",
+  "engines": {
+    "yarn": "1.19.0",
+    "node": ">=0.10.3"
+  },
   "scripts": {
     "test": "jest",
     "start": "node server/server.js",
