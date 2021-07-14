@@ -9,6 +9,8 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { PubSub } from 'graphql-subscriptions';
 export const pubsub = new PubSub();
 import { SubscriptionServer } from 'subscriptions-transport-ws';
+
+import { connectToDB } from './db/connection.js';
 import typeDefs from './routes/schema.js';
 import resolvers from './routes/resolvers.js';
 
@@ -84,6 +86,8 @@ const subscriptionServer = SubscriptionServer.create(
   process.on(signal, () => subscriptionServer.close());
 });
 
-httpServer.listen(PORT, () =>
-  console.log(`Now browse to http://localhost:${PORT}/graphql`)
+connectToDB(() =>
+  httpServer.listen(PORT, () =>
+    console.log(`Now browse to http://localhost:${PORT}/graphql`)
+  )
 );
