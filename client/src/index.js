@@ -25,7 +25,6 @@ const wsLink = new WebSocketLink({
     reconnect: true,
   },
 });
-console.log('ws' + process.env.HEROKU_URL.split('https:')[1] + '/graphql');
 
 // The split function takes three parameters:
 //
