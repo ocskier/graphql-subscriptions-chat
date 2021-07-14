@@ -1,4 +1,4 @@
-import { pubsub } from './server.js';
+import { pubsub } from '../server.js';
 import { v4 as uuidv4 } from 'uuid';
 
 const messageData = [];
