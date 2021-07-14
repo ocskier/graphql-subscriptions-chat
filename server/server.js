@@ -9,8 +9,8 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { PubSub } from 'graphql-subscriptions';
 export const pubsub = new PubSub();
 import { SubscriptionServer } from 'subscriptions-transport-ws';
-import typeDefs from './schema.js';
-import resolvers from './resolvers.js';
+import typeDefs from './routes/schema.js';
+import resolvers from './routes/resolvers.js';
 
 const PORT = process.env.PORT || 4000;
 
