@@ -12,14 +12,14 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 const httpLink = new HttpLink({
   uri:
     process.env.NODE_ENV === 'production'
-      ? process.env.HEROKU_URL + '/graphql'
+      ? 'https://graphql-subscriptions-chatbox.herokuapp.com/graphql'
       : 'http://localhost:4000/graphql',
 });
 
 const wsLink = new WebSocketLink({
   uri:
     process.env.NODE_ENV === 'production'
-      ? 'ws://' + process.env.HEROKU_URL.split('https://')[1] + '/graphql'
+      ? 'ws://graphql-subscriptions-chatbox.herokuapp.com/graphql'
       : 'ws://localhost:4000/graphql',
   options: {
     reconnect: true,
