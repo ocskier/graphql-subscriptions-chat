@@ -12,20 +12,20 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 const httpLink = new HttpLink({
   uri:
     process.env.NODE_ENV === 'production'
-      ? process.env.PUBLIC_URL + '/graphql'
+      ? process.env.HEROKU_URL + '/graphql'
       : 'http://localhost:4000/graphql',
 });
 
 const wsLink = new WebSocketLink({
   uri:
     process.env.NODE_ENV === 'production'
-      ? 'ws' + process.env.PUBLIC_URL.split('https:')[1] + '/graphql'
+      ? 'ws://' + process.env.HEROKU_URL.split('https://')[1] + '/graphql'
       : 'ws://localhost:4000/graphql',
   options: {
     reconnect: true,
   },
 });
-console.log('ws' + process.env.PUBLIC_URL.split('https:')[1] + '/graphql');
+console.log('ws' + process.env.HEROKU_URL.split('https:')[1] + '/graphql');
 
 // The split function takes three parameters:
 //
