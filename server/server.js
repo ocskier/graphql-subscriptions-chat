@@ -87,7 +87,11 @@ const subscriptionServer = SubscriptionServer.create(
 });
 
 connectToDB(() =>
-  httpServer.listen(PORT, () =>
-    console.log(`Now browse to http://localhost:${PORT}/graphql`)
-  )
+  httpServer.listen(PORT, () => {
+    if (process.env.NODE_ENV === 'production') {
+      console.log('Production server started!');
+    } else {
+      console.log(`Now browse to http://localhost:${PORT}/graphql`);
+    }
+  })
 );
