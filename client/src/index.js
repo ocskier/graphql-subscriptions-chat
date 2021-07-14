@@ -19,7 +19,7 @@ const httpLink = new HttpLink({
 const wsLink = new WebSocketLink({
   uri:
     process.env.NODE_ENV === 'production'
-      ? 'ws://graphql-subscriptions-chatbox.herokuapp.com/graphql'
+      ? 'wss://graphql-subscriptions-chatbox.herokuapp.com/graphql'
       : 'ws://localhost:4000/graphql',
   options: {
     reconnect: true,
