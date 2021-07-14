@@ -1,30 +1,38 @@
-import { pubsub } from '../server.js';
 import { v4 as uuidv4 } from 'uuid';
-
-const messageData = [];
+import { pubsub } from '../server.js';
+import db from '../models/index.js';
 
 const resolvers = {
   Query: {
-    messages: () => {
+    messages: async () => {
       console.log('Returning all chat messages!');
-      return messageData;
+      try {
+        const allMessages = await db.Message.find({});
+        return allMessages;
+      } catch (err) {}
     },
   },
   Mutation: {
-    postMessage: (parent, { message }) => {
+    postMessage: async (parent, { message: content }) => {
       console.log('Posting a chat message!');
-      const newMessage = {
-        id: uuidv4(),
-        content: message.content,
-      };
-      messageData.push(newMessage);
-      pubsub.publish('POST_MESSAGE', {
-        messageAdded: newMessage,
-      });
-      return {
-        success: newMessage,
-        error: null,
-      };
+      try {
+        const newMessage = await db.Message.create(content);
+        pubsub.publish('POST_MESSAGE', {
+          messageAdded: newMessage,
+        });
+        return {
+          success: newMessage,
+          error: null,
+        };
+      } catch (err) {
+        console.log(err);
+        return {
+          success: null,
+          error: {
+            message: err.message,
+          },
+        };
+      }
     },
   },
   Subscription: {
