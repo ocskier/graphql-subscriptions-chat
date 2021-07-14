@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import { createServer } from 'http';
+import path from 'path';
 import { ApolloServer } from 'apollo-server-express';
 import { execute, subscribe } from 'graphql';
 // import { graphqlHTTP } from 'express-graphql';
@@ -28,6 +29,20 @@ app.use(
     ].join(' ');
   })
 );
+
+// ==== if its production environment!
+if (process.env.NODE_ENV === 'production') {
+  console.log('YOU ARE IN THE PRODUCTION ENV');
+  const __dirname = path.dirname(new URL(import.meta.url).pathname);
+  app.use(
+    '/static',
+    express.static(path.join(__dirname, '../client/build/static'))
+  );
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/'));
+  });
+}
+
 const httpServer = createServer(app);
 const server = new ApolloServer({
   schema,
