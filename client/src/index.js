@@ -10,15 +10,22 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri:
+    process.env.NODE_ENV === 'production'
+      ? process.env.PUBLIC_URL + '/graphql'
+      : 'http://localhost:4000/graphql',
 });
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:4000/graphql',
+  uri:
+    process.env.NODE_ENV === 'production'
+      ? 'ws' + process.env.PUBLIC_URL.split('https:')[1] + '/graphql'
+      : 'ws://localhost:4000/graphql',
   options: {
     reconnect: true,
   },
 });
+console.log('ws' + process.env.PUBLIC_URL.split('https:')[1] + '/graphql');
 
 // The split function takes three parameters:
 //
