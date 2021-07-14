@@ -12,6 +12,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    paddingBottom: '2.5em',
   },
   chatListItem: {
     maxWidth: '16rem',
@@ -20,6 +21,9 @@ const styles = {
     marginTop: '4rem',
   },
   history: {
+    marginTop: '2rem',
+    fontSize: '1.5rem',
+    fontWeight: 600,
     textDecoration: 'underline',
   },
 };
@@ -27,13 +31,13 @@ const styles = {
 export const Chat = ({ messages }) => {
   const [message, setMessage] = useState('');
   const [postMessage, { data }] = useMutation(POST_MESSAGE);
-  console.log('Posted message: ', data);
   const submitHandler = async (e) => {
     e.preventDefault();
     await postMessage({ variables: { message: { content: message } } });
   };
 
   useEffect(() => {
+    console.log('Posted message: ', data);
     !data?.error && setMessage('');
   }, [data]);
 
