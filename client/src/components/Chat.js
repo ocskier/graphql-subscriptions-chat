@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { Container } from 'semantic-ui-react';
 import { List } from 'semantic-ui-react';
 import { Button, Checkbox, Form } from 'semantic-ui-react';
 import mutations from '../utils/mutations';
+
+const { POST_MESSAGE } = mutations;
 
 const styles = {
   chatCtn: {
@@ -23,13 +25,18 @@ const styles = {
 };
 
 export const Chat = ({ messages }) => {
-  const { POST_MESSAGE } = mutations;
   const [message, setMessage] = useState('');
   const [postMessage, { data }] = useMutation(POST_MESSAGE);
-  const submitHandler = (e) => {
+  console.log('Posted message: ', data);
+  const submitHandler = async (e) => {
     e.preventDefault();
-    postMessage({ variables: { message: { content: message } } });
+    await postMessage({ variables: { message: { content: message } } });
   };
+
+  useEffect(() => {
+    !data?.error && setMessage('');
+  }, [data]);
+
   return (
     <Container style={styles.chatCtn}>
       <h3 style={styles.history}>History</h3>
