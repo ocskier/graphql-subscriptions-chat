@@ -1,5 +1,3 @@
-import { buildSchema, buildASTSchema } from 'graphql';
-
 const schema = `
   type Message {
     id: String
