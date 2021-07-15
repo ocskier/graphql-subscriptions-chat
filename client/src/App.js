@@ -18,17 +18,29 @@ function App() {
     error,
     data: { messages } = {},
   } = useQuery(ALL_MESSAGES);
+
   const { data: newPost, loading: loadingNewPost } = useSubscription(
     MESSAGES_SUBSCRIPTION
     // {
     //   variables: { },
     // }
   );
-  console.log('Loading: ', loading);
-  console.log('Error: ', error);
-  console.log('Message Data: ', messages);
-  console.log('Subscription Post: ', newPost);
-  console.log('Loading subscription data: ', loadingNewPost);
+
+  useEffect(() => {
+    console.log('Loading: ', loading);
+  }, [loading]);
+  useEffect(() => {
+    console.log('Error: ', error);
+  }, [error]);
+  useEffect(() => {
+    console.log('Message Data: ', messages);
+  }, [messages]);
+  useEffect(() => {
+    console.log('Subscription Post: ', newPost);
+  }, [newPost]);
+  useEffect(() => {
+    console.log('Loading subscription data: ', loadingNewPost);
+  }, [loadingNewPost]);
 
   const subscribeToChat = useCallback(() => {
     subscribeToMore({
@@ -37,7 +49,7 @@ function App() {
         if (!subscriptionData.data) return prev;
         const newFeedItem = subscriptionData.data.messageAdded;
         return Object.assign({}, prev, {
-          messages: [newFeedItem, ...prev.messages],
+          messages: [...prev.messages, newFeedItem],
         });
       },
     });
