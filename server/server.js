@@ -50,13 +50,6 @@ const server = new ApolloServer({
   schema,
 });
 
-// app.use(
-//   '/graphql',
-//   graphqlHTTP({
-//     schema: schema,
-//     graphiql: true,
-//   })
-// );
 server.applyMiddleware({ app });
 const subscriptionServer = SubscriptionServer.create(
   {
@@ -81,7 +74,6 @@ const subscriptionServer = SubscriptionServer.create(
 );
 
 // Shut down in the case of interrupt and termination signals
-// We expect to handle this more cleanly in the future. See (#5074)[https://github.com/apollographql/apollo-server/issues/5074] for reference.
 ['SIGINT', 'SIGTERM'].forEach((signal) => {
   process.on(signal, () => subscriptionServer.close());
 });
