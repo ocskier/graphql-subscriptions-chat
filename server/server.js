@@ -4,7 +4,6 @@ import { createServer } from 'http';
 import path from 'path';
 import { ApolloServer } from 'apollo-server-express';
 import { execute, subscribe } from 'graphql';
-// import { graphqlHTTP } from 'express-graphql';
 import { makeExecutableSchema } from 'graphql-tools';
 import { PubSub } from 'graphql-subscriptions';
 export const pubsub = new PubSub();
