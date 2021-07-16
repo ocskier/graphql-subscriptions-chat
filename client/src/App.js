@@ -1,9 +1,10 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import { useQuery, useSubscription } from '@apollo/client';
 import queries from './utils/queries';
 import subscriptions from './utils/subscriptions';
 
 import { Chat } from './components/Chat';
+import { GlobalContext } from './context/store';
 
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
@@ -12,6 +13,7 @@ const { ALL_MESSAGES } = queries;
 const { MESSAGES_SUBSCRIPTION } = subscriptions;
 
 function App() {
+  const { state: user } = useContext(GlobalContext);
   const {
     subscribeToMore,
     loading,
@@ -41,6 +43,9 @@ function App() {
   useEffect(() => {
     console.log('Loading subscription data: ', loadingNewPost);
   }, [loadingNewPost]);
+  useEffect(() => {
+    console.log('User state value: ', user);
+  }, [user]);
 
   const subscribeToChat = useCallback(() => {
     subscribeToMore({

@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { split, HttpLink } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
+
+import App from './App';
+import { GlobalProvider } from './context/store';
+
+import './index.css';
 
 const httpLink = new HttpLink({
   uri:
@@ -46,7 +49,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   // <React.StrictMode>
   <ApolloProvider client={client}>
-    <App />
+    <GlobalProvider>
+      <App />
+    </GlobalProvider>
   </ApolloProvider>,
   // </React.StrictMode>
   document.getElementById('root')
