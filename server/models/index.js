@@ -1,2 +1,4 @@
 import Message from './message.js';
-export default { Message: Message };
+import User from './user.js';
+
+export default { Message: Message, User: User };

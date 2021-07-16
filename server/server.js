@@ -12,6 +12,7 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { connectToDB } from './db/connection.js';
 import typeDefs from './routes/schema.js';
 import resolvers from './routes/resolvers.js';
+import db from './models/index.js';
 
 const PORT = process.env.PORT || 4000;
 
