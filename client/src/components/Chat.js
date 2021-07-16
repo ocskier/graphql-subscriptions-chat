@@ -17,6 +17,10 @@ const styles = {
   chatListItem: {
     minWidth: '16rem',
   },
+  feed: {
+    maxHeight: '30em',
+    overflow: 'auto',
+  },
   form: {
     marginTop: '4rem',
   },
@@ -41,10 +45,15 @@ export const Chat = ({ messages }) => {
     !data?.error && setMessage('');
   }, [data]);
 
+  useEffect(() => {
+    const feed = document.getElementById('feed');
+    feed.scrollTop = feed.scrollHeight;
+  }, [messages]);
+
   return (
     <Container style={styles.chatCtn}>
       <h3 style={styles.history}>History</h3>
-      <Feed>
+      <Feed id="feed" style={styles.feed}>
         {messages.length ? (
           messages.map((message, index) => (
             <Feed.Event>
