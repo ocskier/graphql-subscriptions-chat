@@ -1,9 +1,13 @@
-import { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useQuery, useSubscription } from '@apollo/client';
+import { Button } from 'semantic-ui-react';
+
 import queries from './utils/queries';
 import subscriptions from './utils/subscriptions';
 
+import { AuthModal } from './components/AuthModal';
 import { Chat } from './components/Chat';
+
 import { GlobalContext } from './context/store';
 
 import 'semantic-ui-css/semantic.min.css';
@@ -14,6 +18,7 @@ const { MESSAGES_SUBSCRIPTION } = subscriptions;
 
 function App() {
   const { state: user } = useContext(GlobalContext);
+  const [open, setOpen] = useState(false);
   const {
     subscribeToMore,
     loading,
@@ -66,6 +71,15 @@ function App() {
 
   return (
     <div className="App">
+      <div>
+        <Button
+          onClick={() => setOpen(true)}
+          style={{ position: 'absolute', top: '2rem', right: '2rem' }}
+        >
+          Login
+        </Button>
+        <AuthModal open={open} setOpen={setOpen} />
+      </div>
       {loading && <p>Loading...</p>}
       {error && <p>Error : {error.message}</p>}
       {messages && <Chat messages={messages} />}
