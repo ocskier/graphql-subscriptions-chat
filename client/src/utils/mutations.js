@@ -15,7 +15,7 @@ const mutations = {
     }
   `,
   REGISTER: gql`
-    mutation register($user: UserInput!) {
+    mutation Register($user: UserInput!) {
       register(user: $user) {
         success {
           _id
