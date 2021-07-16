@@ -19,7 +19,8 @@
     "graphql-tools": "^7.0.5",
     "mongoose": "^5.13.2",
     "morgan": "^1.10.0",
-    "subscriptions-transport-ws": "^0.9.19"
+    "subscriptions-transport-ws": "^0.9.19",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
