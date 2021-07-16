@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { Container } from 'semantic-ui-react';
-import { List } from 'semantic-ui-react';
+import { Feed, Icon } from 'semantic-ui-react';
 import { Button, Checkbox, Form } from 'semantic-ui-react';
 import mutations from '../utils/mutations';
 
@@ -15,7 +15,7 @@ const styles = {
     paddingBottom: '2.5em',
   },
   chatListItem: {
-    maxWidth: '16rem',
+    minWidth: '16rem',
   },
   form: {
     marginTop: '4rem',
@@ -44,18 +44,34 @@ export const Chat = ({ messages }) => {
   return (
     <Container style={styles.chatCtn}>
       <h3 style={styles.history}>History</h3>
-      <List>
+      <Feed>
         {messages.length ? (
           messages.map((message, index) => (
-            <List.Item key={index} style={styles.chatListItem}>
-              <List.Icon name="users" />
-              <List.Content>{message.content}</List.Content>
-            </List.Item>
+            <Feed.Event>
+              <Feed.Label>
+                <Icon name="users" />
+              </Feed.Label>
+              <Feed.Content>
+                <Feed.Summary>
+                  <Feed.User>User</Feed.User>
+                  <Feed.Date>1 Hour Ago</Feed.Date>
+                </Feed.Summary>
+                <Feed.Summary>said</Feed.Summary>
+                <Feed.Extra text style={styles.chatListItem}>
+                  {message.content}
+                </Feed.Extra>
+                <Feed.Meta>
+                  <Feed.Like>
+                    <Icon name="like" />0 Likes
+                  </Feed.Like>
+                </Feed.Meta>
+              </Feed.Content>
+            </Feed.Event>
           ))
         ) : (
           <p>No messages to display!</p>
         )}
-      </List>
+      </Feed>
       <Form style={styles.form} onSubmit={submitHandler}>
         <Form.Field>
           <label>Message</label>
