@@ -14,6 +14,24 @@ const mutations = {
       }
     }
   `,
+  REGISTER: gql`
+    mutation register($user: UserInput!) {
+      register(user: $user) {
+        success {
+          _id
+          first
+          last
+          username
+          email
+          password
+          full
+        }
+        error {
+          message
+        }
+      }
+    }
+  `,
 };
 
 export default mutations;
