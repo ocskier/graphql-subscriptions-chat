@@ -27,7 +27,7 @@ export const ChatForm = () => {
 
   useEffect(() => {
     console.log('Posted message: ', data);
-    data?.success && setMessage('');
+    data?.postMessage.success && setMessage('');
   }, [data]);
 
   return (

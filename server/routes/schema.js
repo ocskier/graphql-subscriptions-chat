@@ -20,9 +20,9 @@ const schema = `
     full: String
   }
   input UserInput {
-    first: String!
-    last: String!
-    username: String!
+    first: String
+    last: String
+    username: String
     email: String!
     password: String!
   }
@@ -38,6 +38,7 @@ const schema = `
   }
   type Mutation {
     postMessage(message: MessageContent): ResponseObject
+    login(creds: UserInput): AuthResponseObject
     register(user: UserInput): AuthResponseObject
   }
   type Subscription {

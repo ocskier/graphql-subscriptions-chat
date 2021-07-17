@@ -24,6 +24,23 @@ const mutations = {
         };
       }
     },
+    login: async (parent, { creds }) => {
+      try {
+        const existingUser = await db.User.findOne(creds);
+        return {
+          success: existingUser,
+          error: null,
+        };
+      } catch (err) {
+        console.log(err);
+        return {
+          success: null,
+          error: {
+            message: err.message,
+          },
+        };
+      }
+    },
     register: async (parent, { user }) => {
       try {
         const newUser = await db.User.create(user);

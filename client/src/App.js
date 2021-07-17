@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useQuery, useSubscription } from '@apollo/client';
-import { Button } from 'semantic-ui-react';
+import { Button, Label } from 'semantic-ui-react';
 
 import queries from './utils/queries';
 import subscriptions from './utils/subscriptions';
@@ -17,7 +17,9 @@ const { ALL_MESSAGES } = queries;
 const { MESSAGES_SUBSCRIPTION } = subscriptions;
 
 function App() {
-  const { state: user } = useContext(GlobalContext);
+  const {
+    state: { user, loggedIn },
+  } = useContext(GlobalContext);
   const [open, setOpen] = useState(false);
   const {
     subscribeToMore,
@@ -72,12 +74,27 @@ function App() {
   return (
     <div className="App">
       <div>
-        <Button
-          onClick={() => setOpen(true)}
-          style={{ position: 'absolute', top: '2rem', right: '2rem' }}
-        >
-          Login
-        </Button>
+        {!loggedIn && (
+          <Button
+            onClick={() => setOpen(true)}
+            style={{ position: 'absolute', top: '2rem', right: '2rem' }}
+          >
+            Register/Login
+          </Button>
+        )}
+        {loggedIn && (
+          <Label
+            style={{ position: 'absolute', top: '2rem', left: '2rem' }}
+            as="a"
+            image
+          >
+            <img
+              alt="profile"
+              src="https://react.semantic-ui.com/images/avatar/small/joe.jpg"
+            />
+            {user.full}
+          </Label>
+        )}
         <AuthModal open={open} setOpen={setOpen} />
       </div>
       {loading && <p>Loading...</p>}
