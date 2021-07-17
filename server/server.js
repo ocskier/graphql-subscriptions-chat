@@ -48,6 +48,10 @@ if (process.env.NODE_ENV === 'production') {
 const httpServer = createServer(app);
 const server = new ApolloServer({
   schema,
+  context: ({ req }) => ({
+    getUser: req.user,
+    logout: req.logout(),
+  }),
 });
 
 server.applyMiddleware({ app });
