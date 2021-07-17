@@ -8,6 +8,14 @@ import mutations from '../utils/mutations';
 
 const { REGISTER, LOGIN } = mutations;
 
+const emptyFormData = {
+  first: '',
+  last: '',
+  username: '',
+  email: '',
+  password: '',
+};
+
 const styles = {
   submitBtns: {
     display: 'flex',
@@ -15,16 +23,9 @@ const styles = {
   },
 };
 
-export const AuthForm = ({ setOpen, type }) => {
+export const AuthForm = ({ error, setError, setOpen, type, setFormType }) => {
   const [checked, setChecked] = useState(false);
-  const [error, setError] = useState(false);
-  const [formData, setFormData] = useState({
-    first: '',
-    last: '',
-    username: '',
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState(emptyFormData);
   const { dispatch } = useContext(GlobalContext);
   const [register, { data: registerData, loadingRegister }] =
     useMutation(REGISTER);
@@ -54,21 +55,19 @@ export const AuthForm = ({ setOpen, type }) => {
   };
 
   useEffect(() => {
-    console.log('User registered: ', registerData);
-    registerData?.register.success && setFormData({});
-    registerData?.register.success && setOpen(false);
-    registerData?.register.success && dispatch(actions.register());
+    registerData?.register.success && setFormData(emptyFormData);
+    registerData?.register.success && setFormType('login');
+    registerData?.register.success && setError(false);
     registerData?.register.error && setError(true);
-  }, [dispatch, registerData, setOpen]);
+  }, [registerData, setError, setFormType]);
 
   useEffect(() => {
-    console.log('User logged in: ', loginData);
-    loginData?.login.success && setFormData({});
+    loginData?.login.success && setFormData(emptyFormData);
     loginData?.login.success && setOpen(false);
     loginData?.login.success &&
       dispatch(actions.login(loginData.login.success));
     loginData?.login.error && setError(true);
-  }, [dispatch, loginData, setOpen]);
+  }, [dispatch, loginData, setError, setOpen]);
 
   useEffect(() => {
     console.log('Loading register: ', loadingRegister);
@@ -145,7 +144,7 @@ export const AuthForm = ({ setOpen, type }) => {
             <Icon name="arrow right" />
           </Button.Content>
         </Button>
-        {error && <p>There was a problem registering!!</p>}
+        {error && <p>There was a problem with authentication!!</p>}
         <Button onClick={(e) => setOpen(false)} type="button" negative>
           No
         </Button>

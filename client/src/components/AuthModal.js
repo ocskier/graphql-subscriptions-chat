@@ -1,14 +1,15 @@
-import { useContext } from 'react';
-import { Modal } from 'semantic-ui-react';
-
-import { GlobalContext } from '../context/store';
+import { useState } from 'react';
+import { Button, Modal } from 'semantic-ui-react';
 
 import { AuthForm } from './AuthForm';
 
 export const AuthModal = ({ open, setOpen }) => {
-  const {
-    state: { registered },
-  } = useContext(GlobalContext);
+  const [formType, setFormType] = useState('login');
+  const [error, setError] = useState(false);
+  const changeForm = () => {
+    setError(false);
+    setFormType(formType === 'login' ? 'register' : 'login');
+  };
 
   return (
     <>
@@ -24,12 +25,27 @@ export const AuthModal = ({ open, setOpen }) => {
         }
         open={open}
       >
-        <Modal.Header>Register</Modal.Header>
+        <Modal.Header>
+          {formType === 'login' ? 'Login' : 'Register'}
+          <Button
+            onClick={changeForm}
+            style={{ marginLeft: '2rem' }}
+            type="button"
+          >
+            {formType === 'login' ? '=> Register' : '=> Login'}
+          </Button>
+        </Modal.Header>
         <Modal.Content>
-          <p>Are you sure you want to register?</p>
+          <p>
+            Are you sure you want to{' '}
+            {formType === 'login' ? 'login' : 'register'}?
+          </p>
           <AuthForm
+            error={error}
+            setError={setError}
+            setFormType={setFormType}
             setOpen={setOpen}
-            type={registered ? 'login' : 'register'}
+            type={formType === 'login' ? 'login' : 'register'}
           />
         </Modal.Content>
       </Modal>

@@ -9,6 +9,7 @@ import { AuthModal } from './components/AuthModal';
 import { Chat } from './components/Chat';
 
 import { GlobalContext } from './context/store';
+import actions from './context/actions';
 
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
@@ -16,8 +17,23 @@ import './App.css';
 const { ALL_MESSAGES } = queries;
 const { MESSAGES_SUBSCRIPTION } = subscriptions;
 
+const styles = {
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '1rem 2.5em 0',
+    position: 'relative',
+    minHeight: '5rem',
+  },
+  right: {
+    justifyContent: 'flex-end',
+  },
+};
+
 function App() {
   const {
+    dispatch,
     state: { user, loggedIn },
   } = useContext(GlobalContext);
   const [open, setOpen] = useState(false);
@@ -73,21 +89,13 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        {!loggedIn && (
-          <Button
-            onClick={() => setOpen(true)}
-            style={{ position: 'absolute', top: '2rem', right: '2rem' }}
-          >
-            Register/Login
-          </Button>
-        )}
+      <div
+        style={
+          !loggedIn ? { ...styles.header, ...styles.right } : styles.header
+        }
+      >
         {loggedIn && (
-          <Label
-            style={{ position: 'absolute', top: '2rem', left: '2rem' }}
-            as="a"
-            image
-          >
+          <Label as="a" image>
             <img
               alt="profile"
               src="https://react.semantic-ui.com/images/avatar/small/joe.jpg"
@@ -95,6 +103,13 @@ function App() {
             {user.full}
           </Label>
         )}
+        <Button
+          onClick={() =>
+            !loggedIn ? setOpen(true) : dispatch(actions.logout())
+          }
+        >
+          {!loggedIn ? 'Register/Login' : 'Logout'}
+        </Button>
         <AuthModal open={open} setOpen={setOpen} />
       </div>
       {loading && <p>Loading...</p>}

@@ -6,7 +6,6 @@ const GlobalContext = React.createContext(null);
 function GlobalProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, {
     loggedIn: false,
-    registered: false,
     user: null,
   });
 

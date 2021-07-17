@@ -1,17 +1,15 @@
 export function reducer(state, { type, payload }) {
   switch (type) {
-    case 'REGISTER':
-      return { ...state, registered: true };
     case 'LOGIN':
       return {
         ...state,
         ...payload,
         loggedIn: true,
-        registered: true,
       };
     case 'LOGOUT':
       return {
         ...state,
+        user: null,
         loggedIn: false,
       };
     case 'GET_USER':

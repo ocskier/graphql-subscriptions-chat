@@ -6,10 +6,6 @@ const TYPES = {
 };
 
 const actions = {
-  register: () => ({
-    type: TYPES.REGISTER,
-    payload: {},
-  }),
   login: (user) => ({
     type: TYPES.LOGIN,
     payload: { user },

@@ -27,10 +27,19 @@ const mutations = {
     login: async (parent, { creds }) => {
       try {
         const existingUser = await db.User.findOne(creds);
-        return {
-          success: existingUser,
-          error: null,
-        };
+        if (existingUser) {
+          return {
+            success: existingUser,
+            error: null,
+          };
+        } else {
+          return {
+            success: null,
+            error: {
+              message: "User can't be authenticated!",
+            },
+          };
+        }
       } catch (err) {
         console.log(err);
         return {
