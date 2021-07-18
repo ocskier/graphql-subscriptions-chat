@@ -17,7 +17,6 @@ const queries = {
           last
           username
           email
-          password
           full
         }
         error {

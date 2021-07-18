@@ -51,8 +51,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cors({
-    // withCredentials: true,
-    // origin: 'http://localhost:4000/graphql',
+    credentials: true,
+    origin: 'http://localhost:3000',
   })
 );
 app.use(

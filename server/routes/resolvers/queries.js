@@ -10,17 +10,25 @@ const queries = {
       } catch (err) {}
     },
     me: async (parent, args, { req }) => {
-      return req.user
-        ? {
-            success: req.user,
-            error: null,
-          }
-        : {
-            success: null,
-            error: {
-              message: 'User not logged in!!!',
-            },
-          };
+      console.log(req.user);
+      if (req.user) {
+        console.log(req.user);
+        const user = JSON.parse(JSON.stringify(req.user));
+        const cleanUser = Object.assign({}, user);
+        console.log(`Deleting password`);
+        delete cleanUser.password;
+        return {
+          success: cleanUser,
+          error: null,
+        };
+      } else {
+        return {
+          success: null,
+          error: {
+            message: 'User not logged in!!!',
+          },
+        };
+      }
     },
   },
 };

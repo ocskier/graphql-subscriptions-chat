@@ -2,7 +2,7 @@ const TYPES = {
   REGISTER: 'REGISTER',
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
-  UPDATE_USER: 'GET_USER',
+  GET_USER: 'GET_USER',
 };
 
 const actions = {

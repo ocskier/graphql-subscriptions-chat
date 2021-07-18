@@ -28,9 +28,14 @@ const mutations = {
       try {
         const { user } = await authenticate('graphql-local', creds);
         await login(user);
-        if (user) {
+        const cleanUser = Object.assign({}, user);
+        if (cleanUser) {
+          console.log(`Deleting password`);
+          delete cleanUser.password;
+        }
+        if (cleanUser) {
           return {
-            success: user,
+            success: cleanUser,
             error: null,
           };
         } else {
