@@ -9,6 +9,19 @@ const queries = {
         return allMessages;
       } catch (err) {}
     },
+    me: async (parent, args, { req }) => {
+      return req.user
+        ? {
+            success: req.user,
+            error: null,
+          }
+        : {
+            success: null,
+            error: {
+              message: 'User not logged in!!!',
+            },
+          };
+    },
   },
 };
 

@@ -1,18 +1,22 @@
 import express from 'express';
+import session from 'express-session';
+import mongoSession from 'connect-mongodb-session';
+import cors from 'cors';
 import morgan from 'morgan';
 import { createServer } from 'http';
 import path from 'path';
 import { ApolloServer } from 'apollo-server-express';
 import { execute, subscribe } from 'graphql';
 import { makeExecutableSchema } from 'graphql-tools';
+import { buildContext } from 'graphql-passport';
 import { PubSub } from 'graphql-subscriptions';
 export const pubsub = new PubSub();
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 
 import { connectToDB } from './db/connection.js';
+import passport from './middleware/passport.js';
 import typeDefs from './routes/schema.js';
 import resolvers from './routes/resolvers/index.js';
-import db from './models/index.js';
 
 const PORT = process.env.PORT || 4000;
 
@@ -22,6 +26,7 @@ const schema = makeExecutableSchema({
 });
 
 const app = express();
+
 app.use(
   morgan((tokens, req, res) => {
     return [
@@ -31,6 +36,43 @@ app.use(
     ].join(' ');
   })
 );
+
+const MongoDBStore = mongoSession(session);
+const store = new MongoDBStore({
+  uri: process.env.MONGODB_URL || 'mongodb://localhost:27017/chat',
+  collection: 'mongo-sessions',
+});
+// Catch errors
+store.on('error', function (error) {
+  console.log(error);
+});
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(
+  cors({
+    // withCredentials: true,
+    // origin: 'http://localhost:4000/graphql',
+  })
+);
+app.use(
+  session({
+    secret: 'chat secret',
+    cookie: {
+      maxAge: 1000 * 60 * 60, // 1 hour
+    },
+    store: store,
+    resave: true,
+    saveUninitialized: true,
+    connectionOptions: {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // ==== if its production environment!
 if (process.env.NODE_ENV === 'production') {
@@ -48,9 +90,10 @@ if (process.env.NODE_ENV === 'production') {
 const httpServer = createServer(app);
 const server = new ApolloServer({
   schema,
+  context: ({ req, res }) => buildContext({ req, res }),
 });
 
-server.applyMiddleware({ app });
+server.applyMiddleware({ app, cors: false });
 const subscriptionServer = SubscriptionServer.create(
   {
     // This is the `schema` we just created.
