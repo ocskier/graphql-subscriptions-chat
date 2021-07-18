@@ -35,11 +35,13 @@ const schema = `
   }
   type Query {
     messages: [Message]
+    me: AuthResponseObject
   }
   type Mutation {
     postMessage(message: MessageContent): ResponseObject
-    login(creds: UserInput): AuthResponseObject
     register(user: UserInput): AuthResponseObject
+    login(creds: UserInput): AuthResponseObject
+    logout: AuthResponseObject
   }
   type Subscription {
     messageAdded: Message

@@ -24,12 +24,13 @@ const mutations = {
         };
       }
     },
-    login: async (parent, { creds }) => {
+    login: async (parent, { creds }, { authenticate, login }) => {
       try {
-        const existingUser = await db.User.findOne(creds);
-        if (existingUser) {
+        const { user } = await authenticate('graphql-local', creds);
+        await login(user);
+        if (user) {
           return {
-            success: existingUser,
+            success: user,
             error: null,
           };
         } else {
@@ -63,6 +64,20 @@ const mutations = {
           success: null,
           error: {
             message: err.message,
+          },
+        };
+      }
+    },
+    logout: async (parent, args, { logout, req }) => {
+      try {
+        await logout();
+        return {
+          error: null,
+        };
+      } catch (err) {
+        return {
+          error: {
+            message: "Couldn't log out user!",
           },
         };
       }
