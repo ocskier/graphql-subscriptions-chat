@@ -8,6 +8,24 @@ const queries = {
       }
     }
   `,
+  ME: gql`
+    query me {
+      me {
+        success {
+          _id
+          first
+          last
+          username
+          email
+          password
+          full
+        }
+        error {
+          message
+        }
+      }
+    }
+  `,
 };
 
 export default queries;

@@ -50,6 +50,15 @@ const mutations = {
       }
     }
   `,
+  LOGOUT: gql`
+    mutation Logout {
+      logout {
+        error {
+          message
+        }
+      }
+    }
+  `,
 };
 
 export default mutations;
