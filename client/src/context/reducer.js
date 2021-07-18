@@ -16,6 +16,7 @@ export function reducer(state, { type, payload }) {
       return {
         ...state,
         ...payload,
+        loggedIn: true,
       };
     default:
       throw new Error();

@@ -17,6 +17,7 @@ const httpLink = new HttpLink({
     process.env.NODE_ENV === 'production'
       ? 'https://graphql-subscriptions-chatbox.herokuapp.com/graphql'
       : 'http://localhost:4000/graphql',
+  credentials: 'include',
 });
 
 const wsLink = new WebSocketLink({
