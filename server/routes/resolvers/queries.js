@@ -5,7 +5,10 @@ const queries = {
     messages: async () => {
       console.log('Returning all chat messages!');
       try {
-        const allMessages = await db.Message.find({});
+        const allMessages = await db.Message.find({}).populate({
+          path: 'user',
+          select: 'username _id',
+        });
         return allMessages;
       } catch (err) {}
     },

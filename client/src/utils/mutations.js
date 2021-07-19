@@ -23,8 +23,10 @@ const mutations = {
           last
           username
           email
-          password
           full
+          messages {
+            content
+          }
         }
         error {
           message

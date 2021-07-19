@@ -9,7 +9,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (_id, done) => {
   console.log(_id);
-  const matchingUser = await db.User.findById(_id);
+  const matchingUser = await db.User.findById(_id).populate('messages');
   done(null, matchingUser);
 });
 

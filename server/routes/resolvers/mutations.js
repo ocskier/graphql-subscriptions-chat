@@ -3,10 +3,14 @@ import { pubsub } from '../../server.js';
 
 const mutations = {
   Mutation: {
-    postMessage: async (parent, { message: content }) => {
+    postMessage: async (parent, { message: content }, { req }) => {
       console.log('Posting a chat message!');
       try {
-        const newMessage = await db.Message.create(content);
+        console.log(req.user);
+        const newMessage = await db.Message.create({
+          ...content,
+          user: req.user._id,
+        });
         pubsub.publish('POST_MESSAGE', {
           messageAdded: newMessage,
         });

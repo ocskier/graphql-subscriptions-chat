@@ -2,6 +2,9 @@ const schema = `
   type Message {
     id: String
     content: String
+    user: User
+    createdAt: String
+    updatedAt: String
   }
   input MessageContent {
     content: String!
@@ -18,6 +21,7 @@ const schema = `
     email: String
     password: String
     full: String
+    messages: [Message]
   }
   input UserInput {
     first: String

@@ -30,28 +30,35 @@ export const Chat = ({ messages }) => {
       <h3 style={styles.history}>History</h3>
       <Feed id="feed" style={styles.feed}>
         {messages.length ? (
-          messages.map((message, index) => (
-            <Feed.Event key={index}>
-              <Feed.Label>
-                <Icon name="users" />
-              </Feed.Label>
-              <Feed.Content>
-                <Feed.Summary>
-                  <Feed.User>User</Feed.User>
-                  <Feed.Date>1 Hour Ago</Feed.Date>
-                </Feed.Summary>
-                <Feed.Summary>said</Feed.Summary>
-                <Feed.Extra text style={styles.chatListItem}>
-                  {message.content}
-                </Feed.Extra>
-                <Feed.Meta>
-                  <Feed.Like>
-                    <Icon name="like" />0 Likes
-                  </Feed.Like>
-                </Feed.Meta>
-              </Feed.Content>
-            </Feed.Event>
-          ))
+          messages.map((message, index) => {
+            return (
+              <Feed.Event key={index}>
+                <Feed.Label>
+                  <Icon name="users" />
+                </Feed.Label>
+                <Feed.Content>
+                  <Feed.Summary>
+                    <Feed.User>{message.user.username}</Feed.User>
+                    <Feed.Date>
+                      {new Date().getHours() -
+                        new Date(Number(message.createdAt)).getHours()}{' '}
+                      Hour Ago
+                    </Feed.Date>
+                  </Feed.Summary>
+                  <Feed.Summary>said</Feed.Summary>
+                  <Feed.Extra text style={styles.chatListItem}>
+                    {message.content}
+                  </Feed.Extra>
+                  <Feed.Meta>
+                    <Feed.Like>
+                      <Icon name="like" />
+                      {Math.floor(Math.random() * 10)} Likes
+                    </Feed.Like>
+                  </Feed.Meta>
+                </Feed.Content>
+              </Feed.Event>
+            );
+          })
         ) : (
           <p>No messages to display!</p>
         )}
