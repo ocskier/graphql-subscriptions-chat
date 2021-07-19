@@ -5,6 +5,11 @@ const queries = {
     query getAllMessages {
       messages {
         content
+        user {
+          _id
+          username
+        }
+        createdAt
       }
     }
   `,
@@ -18,6 +23,9 @@ const queries = {
           username
           email
           full
+          messages {
+            content
+          }
         }
         error {
           message
