@@ -27,9 +27,10 @@ export const AuthForm = ({ error, setError, setOpen, type, setFormType }) => {
   const [checked, setChecked] = useState(false);
   const [formData, setFormData] = useState(emptyFormData);
   const { dispatch } = useContext(GlobalContext);
-  const [register, { data: registerData, loadingRegister }] =
+  const [register, { data: registerData, loading: loadingRegister }] =
     useMutation(REGISTER);
-  const [login, { data: loginData, loadingLogin }] = useMutation(LOGIN);
+  const [login, { data: loginData, loading: loadingLogin }] =
+    useMutation(LOGIN);
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
