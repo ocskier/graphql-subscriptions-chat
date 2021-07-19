@@ -28,8 +28,8 @@ const mutations = {
       try {
         const { user } = await authenticate('graphql-local', creds);
         await login(user);
-        const user = JSON.parse(JSON.stringify(user));
-        const cleanUser = Object.assign({}, user);
+        const parsedUser = JSON.parse(JSON.stringify(user));
+        const cleanUser = Object.assign({}, parsedUser);
         if (cleanUser) {
           console.log(`Deleting password`);
           delete cleanUser.password;
