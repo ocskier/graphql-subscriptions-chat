@@ -7,6 +7,10 @@ const MessageSchema = new Schema({
     required: true,
     trim: true,
     minLength: 1,
+    user: {
+      type: Schema.type.ObjectId,
+      ref: 'user',
+    },
   },
 });
 

@@ -46,6 +46,12 @@ const UserSchema = new Schema({
   full: {
     type: String,
   },
+  messages: [
+    {
+      type: Schema.type.ObjectId,
+      ref: 'message',
+    },
+  ],
 });
 
 UserSchema.pre('save', function () {
