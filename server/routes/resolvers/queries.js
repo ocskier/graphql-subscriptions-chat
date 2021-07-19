@@ -10,9 +10,8 @@ const queries = {
       } catch (err) {}
     },
     me: async (parent, args, { req }) => {
-      console.log(req.user);
       if (req.user) {
-        console.log(req.user);
+        console.log('Returning logged in user!');
         const user = JSON.parse(JSON.stringify(req.user));
         const cleanUser = Object.assign({}, user);
         console.log(`Deleting password`);

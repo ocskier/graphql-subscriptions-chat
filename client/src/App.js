@@ -1,8 +1,9 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { useQuery, useSubscription } from '@apollo/client';
+import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { Button, Label } from 'semantic-ui-react';
 
 import queries from './utils/queries';
+import mutations from './utils/mutations';
 import subscriptions from './utils/subscriptions';
 
 import { AuthModal } from './components/AuthModal';
@@ -15,6 +16,7 @@ import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
 const { ALL_MESSAGES } = queries;
+const { LOGOUT } = mutations;
 const { MESSAGES_SUBSCRIPTION } = subscriptions;
 
 const styles = {
@@ -50,6 +52,8 @@ function App() {
     //   variables: { },
     // }
   );
+  const [logout, { data: logoutData, loading: loadingLogout }] =
+    useMutation(LOGOUT);
 
   useEffect(() => {
     console.log('Loading: ', loading);
@@ -87,6 +91,11 @@ function App() {
     subscribeToChat();
   }, [subscribeToChat]);
 
+  const handleLogout = async () => {
+    await logout();
+    dispatch(actions.logout());
+  };
+
   return (
     <div className="App">
       <div
@@ -103,11 +112,7 @@ function App() {
             {user.full}
           </Label>
         )}
-        <Button
-          onClick={() =>
-            !loggedIn ? setOpen(true) : dispatch(actions.logout())
-          }
-        >
+        <Button onClick={() => (!loggedIn ? setOpen(true) : handleLogout())}>
           {!loggedIn ? 'Register/Login' : 'Logout'}
         </Button>
         <AuthModal open={open} setOpen={setOpen} />
