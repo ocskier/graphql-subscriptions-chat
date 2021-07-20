@@ -9,7 +9,7 @@ const mutations = {
         console.log(req.user);
         const newMessage = await db.Message.create({
           ...content,
-          user: req.user._id,
+          user: req.user ? req.user._id : null,
         });
         pubsub.publish('POST_MESSAGE', {
           messageAdded: newMessage,

@@ -38,7 +38,9 @@ export const Chat = ({ messages }) => {
                 </Feed.Label>
                 <Feed.Content>
                   <Feed.Summary>
-                    <Feed.User>{message.user.username}</Feed.User>
+                    <Feed.User>
+                      {message.user ? message.user.username : 'Anonymous'}
+                    </Feed.User>
                     <Feed.Date>
                       {new Date().getHours() -
                         new Date(Number(message.createdAt)).getHours()}{' '}
