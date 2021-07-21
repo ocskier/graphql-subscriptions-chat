@@ -44,6 +44,9 @@ export const Chat = ({ messages }) => {
       <Feed id="feed" style={styles.feed}>
         {messages.length ? (
           messages.map((message, index) => {
+            let secondsAgo = Math.floor(
+              (new Date().getTime() - message.createdAt) / 1000
+            );
             return (
               <Feed.Event key={index}>
                 <Feed.Label>
@@ -55,9 +58,13 @@ export const Chat = ({ messages }) => {
                       {message.user ? message.user.username : 'Anonymous'}
                     </Feed.User>
                     <Feed.Date>
-                      {new Date().getHours() -
-                        new Date(Number(message.createdAt)).getHours()}{' '}
-                      Hour Ago
+                      {secondsAgo < 60 * 60
+                        ? `${Math.floor(secondsAgo / 60)} minutes ago`
+                        : secondsAgo >= 60 * 60 && secondsAgo < 24 * 60 * 60
+                        ? `${Math.floor(secondsAgo / (60 * 60))} Hours Ago`
+                        : `${Math.floor(
+                            secondsAgo / (24 * 60 * 60)
+                          )} day(s) ago`}
                     </Feed.Date>
                   </Feed.Summary>
                   <Feed.Summary>said</Feed.Summary>
