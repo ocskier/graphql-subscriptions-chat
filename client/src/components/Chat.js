@@ -12,15 +12,28 @@ const styles = {
   chatListItem: {
     minWidth: '16rem',
   },
+  content: {
+    position: 'relative',
+  },
   feed: {
     maxHeight: '30em',
     overflow: 'auto',
+    minWidth: '24em',
   },
   history: {
     marginTop: '2rem',
     fontSize: '1.5rem',
     fontWeight: 600,
     textDecoration: 'underline',
+  },
+  meta: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+  },
+  summaryTop: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 };
 
@@ -36,8 +49,8 @@ export const Chat = ({ messages }) => {
                 <Feed.Label>
                   <Icon name="users" />
                 </Feed.Label>
-                <Feed.Content>
-                  <Feed.Summary>
+                <Feed.Content style={styles.content}>
+                  <Feed.Summary style={styles.summaryTop}>
                     <Feed.User>
                       {message.user ? message.user.username : 'Anonymous'}
                     </Feed.User>
@@ -51,7 +64,7 @@ export const Chat = ({ messages }) => {
                   <Feed.Extra text style={styles.chatListItem}>
                     {message.content}
                   </Feed.Extra>
-                  <Feed.Meta>
+                  <Feed.Meta style={styles.meta}>
                     <Feed.Like>
                       <Icon name="like" />
                       {Math.floor(Math.random() * 10)} Likes
