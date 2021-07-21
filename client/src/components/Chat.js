@@ -58,7 +58,9 @@ export const Chat = ({ messages }) => {
                       {message.user ? message.user.username : 'Anonymous'}
                     </Feed.User>
                     <Feed.Date>
-                      {secondsAgo < 60 * 60
+                      {secondsAgo < 60
+                        ? 'now'
+                        : secondsAgo >= 60 && secondsAgo < 60 * 60
                         ? `${Math.floor(secondsAgo / 60)} minutes ago`
                         : secondsAgo >= 60 * 60 && secondsAgo < 24 * 60 * 60
                         ? `${Math.floor(secondsAgo / (60 * 60))} Hours Ago`
