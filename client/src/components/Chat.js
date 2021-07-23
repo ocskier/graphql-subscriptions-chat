@@ -1,4 +1,4 @@
-import { Container, Feed, Icon } from 'semantic-ui-react';
+import { Container, Feed, Icon, Transition } from 'semantic-ui-react';
 
 import { ChatForm } from './ChatForm';
 
@@ -41,7 +41,13 @@ export const Chat = ({ messages }) => {
   return (
     <Container style={styles.chatCtn}>
       <h3 style={styles.history}>History</h3>
-      <Feed id="feed" style={styles.feed}>
+      <Transition.Group
+        as={Feed}
+        animation="scale"
+        duration={600}
+        divided
+        style={styles.feed}
+      >
         {messages.length ? (
           messages.map((message, index) => {
             let secondsAgo = Math.floor(
@@ -86,7 +92,7 @@ export const Chat = ({ messages }) => {
         ) : (
           <p>No messages to display!</p>
         )}
-      </Feed>
+      </Transition.Group>
       <ChatForm />
     </Container>
   );
