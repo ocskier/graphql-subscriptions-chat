@@ -93,6 +93,12 @@ const server = new ApolloServer({
   context: ({ req, res }) => buildContext({ req, res }),
 });
 
+const startApolloServer = async () => {
+  return await server.start();
+};
+
+startApolloServer();
+
 server.applyMiddleware({ app, cors: false });
 const subscriptionServer = SubscriptionServer.create(
   {
