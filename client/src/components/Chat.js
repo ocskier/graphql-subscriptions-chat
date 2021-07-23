@@ -42,7 +42,7 @@ export const Chat = ({ messages }) => {
   useEffect(() => {
     var feed = document.querySelector('.feed');
     feed.scrollTop = feed.scrollHeight;
-  });
+  }, [messages]);
   return (
     <Container style={styles.chatCtn}>
       <h3 style={styles.history}>History</h3>
