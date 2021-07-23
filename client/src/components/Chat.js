@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Container, Feed, Icon, Transition } from 'semantic-ui-react';
 
 import { ChatForm } from './ChatForm';
@@ -38,6 +39,10 @@ const styles = {
 };
 
 export const Chat = ({ messages }) => {
+  useEffect(() => {
+    var feed = document.querySelector('.feed');
+    feed.scrollTop = feed.scrollHeight;
+  });
   return (
     <Container style={styles.chatCtn}>
       <h3 style={styles.history}>History</h3>
