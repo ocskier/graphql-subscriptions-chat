@@ -1,3 +1,7 @@
 .App {
   text-align: center;
 }
+
+.feed .transition {
+  padding: 0 0.7rem !important;
+}
