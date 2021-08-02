@@ -3,6 +3,12 @@ import { Button, Comment, Divider, Header, Form } from 'semantic-ui-react';
 
 import { CommentFloatBtn } from './FloatBtn';
 
+const styles = {
+  textarea: {
+    maxHeight: '5rem',
+  },
+};
+
 export const FeedComment = ({ style }) => {
   const [seeComments, setSeeComments] = useState(false);
   const [commenting, setCommenting] = useState(false);
@@ -24,7 +30,7 @@ export const FeedComment = ({ style }) => {
         )}
         {commenting && (
           <Form reply>
-            <Form.TextArea />
+            <Form.TextArea style={styles.textarea} />
             <Button
               content="Add Reply"
               labelPosition="left"
