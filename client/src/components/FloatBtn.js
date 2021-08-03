@@ -8,24 +8,27 @@ const styles = {
   },
 };
 
-export const CommentFloatBtn = ({
-  name,
-  seeComments,
-  setCommenting,
-  setSeeComments,
-}) => (
+export const AddCommentBtn = ({ setCommenting }) => (
   <Icon
-    name={name}
+    name={'add circle'}
+    circular
+    size="small"
+    style={styles.icon}
+    onClick={() => setCommenting((oldVal) => setCommenting(!oldVal))}
+  ></Icon>
+);
+
+export const SeeCommentsBtn = ({ setCommenting, setSeeComments }) => (
+  <Icon
+    name={'chevron circle down'}
     circular
     size="small"
     style={styles.icon}
     onClick={() =>
-      setCommenting && seeComments
-        ? setCommenting((oldVal) => setCommenting(!oldVal))
-        : setSeeComments((oldVal) => {
-            if (oldVal) setCommenting(false);
-            setSeeComments(!oldVal);
-          })
+      setSeeComments((oldVal) => {
+        if (oldVal) setCommenting(false);
+        setSeeComments(!oldVal);
+      })
     }
   ></Icon>
 );

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Comment, Divider, Header, Form } from 'semantic-ui-react';
 
-import { CommentFloatBtn } from './FloatBtn';
+import { AddCommentBtn, SeeCommentsBtn } from './FloatBtn';
 
 const styles = {
   textarea: {
@@ -14,8 +14,7 @@ export const FeedComment = ({ style }) => {
   const [commenting, setCommenting] = useState(false);
   return (
     <>
-      <CommentFloatBtn
-        name={'chevron circle down'}
+      <SeeCommentsBtn
         setCommenting={setCommenting}
         setSeeComments={setSeeComments}
       />
@@ -26,13 +25,7 @@ export const FeedComment = ({ style }) => {
           </Header>
         )}
         <Divider />
-        {seeComments && (
-          <CommentFloatBtn
-            name={'add circle'}
-            seeComments={seeComments}
-            setCommenting={setCommenting}
-          />
-        )}
+        {seeComments && <AddCommentBtn setCommenting={setCommenting} />}
         {commenting && (
           <Form reply>
             <Form.TextArea style={styles.textarea} />
