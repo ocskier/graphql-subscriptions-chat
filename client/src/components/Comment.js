@@ -32,7 +32,7 @@ export const FeedComment = ({ style }) => {
           <Form reply>
             <Form.TextArea style={styles.textarea} />
             <Button
-              content="Add Reply"
+              content="Add Comment"
               labelPosition="left"
               icon="edit"
               primary
