@@ -17,7 +17,10 @@ export const CommentFloatBtn = ({ name, setCommenting, setSeeComments }) => (
     onClick={() =>
       setCommenting
         ? setCommenting((oldVal) => setCommenting(!oldVal))
-        : setSeeComments((oldVal) => setSeeComments(!oldVal))
+        : setSeeComments((oldVal) => {
+            if (oldVal) setCommenting(false);
+            setSeeComments(!oldVal);
+          })
     }
   ></Icon>
 );
