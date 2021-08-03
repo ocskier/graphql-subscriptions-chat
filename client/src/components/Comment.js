@@ -16,6 +16,7 @@ export const FeedComment = ({ style }) => {
     <>
       <CommentFloatBtn
         name={'chevron circle down'}
+        setCommenting={setCommenting}
         setSeeComments={setSeeComments}
       />
       <Comment.Group style={style}>
@@ -26,7 +27,11 @@ export const FeedComment = ({ style }) => {
         )}
         <Divider />
         {seeComments && (
-          <CommentFloatBtn name={'add circle'} setCommenting={setCommenting} />
+          <CommentFloatBtn
+            name={'add circle'}
+            seeComments={seeComments}
+            setCommenting={setCommenting}
+          />
         )}
         {commenting && (
           <Form reply>

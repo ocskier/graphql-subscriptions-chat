@@ -8,14 +8,19 @@ const styles = {
   },
 };
 
-export const CommentFloatBtn = ({ name, setCommenting, setSeeComments }) => (
+export const CommentFloatBtn = ({
+  name,
+  seeComments,
+  setCommenting,
+  setSeeComments,
+}) => (
   <Icon
     name={name}
     circular
     size="small"
     style={styles.icon}
     onClick={() =>
-      setCommenting
+      setCommenting && seeComments
         ? setCommenting((oldVal) => setCommenting(!oldVal))
         : setSeeComments((oldVal) => {
             if (oldVal) setCommenting(false);
