@@ -5,3 +5,9 @@
 .feed .transition {
   padding: 0 0.7rem !important;
 }
+
+@media only screen and (max-width: 528px) {
+  .ui.feed {
+    min-width: 24em !important;
+  }
+}

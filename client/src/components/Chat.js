@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Container, Feed, Icon, Transition } from 'semantic-ui-react';
 
 import { ChatForm } from './ChatForm';
+import { FeedComment } from './Comment';
 
 const styles = {
   chatCtn: {
@@ -16,10 +17,17 @@ const styles = {
   content: {
     position: 'relative',
   },
+  commentCnt: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
   feed: {
     maxHeight: '30em',
     overflow: 'auto',
-    minWidth: '24em',
+    minWidth: '36em',
+  },
+  event: {
+    margin: '1rem 0',
   },
   history: {
     marginTop: '2rem',
@@ -50,7 +58,6 @@ export const Chat = ({ messages }) => {
         as={Feed}
         animation="scale"
         duration={600}
-        divided
         style={styles.feed}
       >
         {messages.length ? (
@@ -59,7 +66,7 @@ export const Chat = ({ messages }) => {
               (new Date().getTime() - message.createdAt) / 1000
             );
             return (
-              <Feed.Event key={index}>
+              <Feed.Event key={index} style={styles.event}>
                 <Feed.Label>
                   <Icon name="users" />
                 </Feed.Label>
@@ -90,6 +97,9 @@ export const Chat = ({ messages }) => {
                       {Math.floor(Math.random() * 10)} Likes
                     </Feed.Like>
                   </Feed.Meta>
+                </Feed.Content>
+                <Feed.Content style={styles.commentCnt}>
+                  <FeedComment style={styles.commentCnt} />
                 </Feed.Content>
               </Feed.Event>
             );

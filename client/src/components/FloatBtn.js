@@ -1,19 +1,34 @@
-import { Button, Dropdown } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
-const options = [
-  { key: 'edit', icon: 'edit', text: 'Edit Post', value: 'edit' },
-];
+const styles = {
+  icon: {
+    margin: 0,
+    fontSize: '1em',
+    alignSelf: 'flex-end',
+  },
+};
 
-const DropdownExampleFloating = () => (
-  <Button.Group color="teal">
-    <Button>Save</Button>
-    <Dropdown
-      className="button icon"
-      floating
-      options={options}
-      trigger={<></>}
-    />
-  </Button.Group>
+export const AddCommentBtn = ({ setCommenting }) => (
+  <Icon
+    name={'add circle'}
+    circular
+    size="small"
+    style={styles.icon}
+    onClick={() => setCommenting((oldVal) => setCommenting(!oldVal))}
+  ></Icon>
 );
 
-export default DropdownExampleFloating;
+export const SeeCommentsBtn = ({ setCommenting, setSeeComments }) => (
+  <Icon
+    name={'chevron circle down'}
+    circular
+    size="small"
+    style={styles.icon}
+    onClick={() =>
+      setSeeComments((oldVal) => {
+        if (oldVal) setCommenting(false);
+        setSeeComments(!oldVal);
+      })
+    }
+  ></Icon>
+);

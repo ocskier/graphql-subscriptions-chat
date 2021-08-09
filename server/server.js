@@ -1,6 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import mongoSession from 'connect-mongodb-session';
+import chalk from 'chalk';
 import cors from 'cors';
 import morgan from 'morgan';
 import { createServer } from 'http';
@@ -30,9 +31,9 @@ const app = express();
 app.use(
   morgan((tokens, req, res) => {
     return [
-      tokens.method(req, res),
-      tokens.url(req, res),
-      tokens.status(req, res),
+      chalk.bold.blueBright.bgGray(tokens.method(req, res)),
+      chalk.bold.redBright.bgGray(tokens.url(req, res)),
+      chalk.bold.yellowBright.bgGray(tokens.status(req, res)),
     ].join(' ');
   })
 );
