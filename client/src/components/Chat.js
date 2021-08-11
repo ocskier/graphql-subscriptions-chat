@@ -22,7 +22,7 @@ const styles = {
     flexDirection: 'column',
   },
   feed: {
-    maxHeight: '30em',
+    // maxHeight: '30em',
     overflow: 'auto',
     minWidth: '36em',
   },
@@ -35,11 +35,7 @@ const styles = {
     fontWeight: 600,
     textDecoration: 'underline',
   },
-  meta: {
-    position: 'absolute',
-    right: 0,
-    bottom: 0,
-  },
+  meta: {},
   summaryTop: {
     display: 'flex',
     justifyContent: 'space-between',
