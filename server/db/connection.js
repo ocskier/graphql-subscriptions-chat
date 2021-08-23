@@ -1,9 +1,20 @@
+import chalk from 'chalk';
 import mongoose from 'mongoose';
 
 mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/chat', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+mongoose.set('debug', (collectionName, methodName, ...methodArgs) =>
+  console.info(
+    chalk.bold.black.bgWhite(
+      `Mongoose: ${collectionName} - ${methodName}(${JSON.stringify(
+        methodArgs
+      )})`
+    )
+  )
+);
 
 const db = mongoose.connection;
 

@@ -32,8 +32,8 @@ app.use(
   morgan((tokens, req, res) => {
     return [
       chalk.bold.blueBright.bgGray(tokens.method(req, res)),
-      chalk.bold.redBright.bgGray(tokens.url(req, res)),
       chalk.bold.yellowBright.bgGray(tokens.status(req, res)),
+      chalk.bold.redBright.bgGray(tokens.url(req, res)),
     ].join(' ');
   })
 );
