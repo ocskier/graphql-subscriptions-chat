@@ -12,12 +12,12 @@ export function reducer(state, { type, payload }) {
         user: null,
         loggedIn: false,
       };
-    case 'GET_USER':
-      return {
-        ...state,
-        ...payload,
-        loggedIn: true,
-      };
+    // case 'GET_USER':
+    //   return {
+    //     ...state,
+    //     ...payload,
+    //     loggedIn: true,
+    //   };
     default:
       throw new Error();
   }

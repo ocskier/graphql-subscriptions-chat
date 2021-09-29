@@ -2,7 +2,6 @@ const TYPES = {
   REGISTER: 'REGISTER',
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
-  GET_USER: 'GET_USER',
 };
 
 const actions = {
@@ -13,10 +12,6 @@ const actions = {
   logout: () => ({
     type: TYPES.LOGOUT,
     payload: {},
-  }),
-  getUser: (user) => ({
-    type: TYPES.GET_USER,
-    payload: { user },
   }),
 };
 

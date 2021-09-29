@@ -23,7 +23,7 @@ function GlobalProvider({ children }) {
   }, [userData, state]);
 
   useEffect(() => {
-    userData?.me.success && dispatch(actions.getUser(userData.me.success));
+    userData?.me.success && dispatch(actions.login(userData.me.success));
     userData?.me.error && console.log(userData.me.error);
   }, [userData]);
 
