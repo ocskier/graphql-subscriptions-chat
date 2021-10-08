@@ -95,12 +95,12 @@ const server = new ApolloServer({
 });
 
 const startApolloServer = async () => {
-  return await server.start();
+  await server.start();
+  return server.applyMiddleware({ app, cors: false });
 };
 
 startApolloServer();
 
-server.applyMiddleware({ app, cors: false });
 const subscriptionServer = SubscriptionServer.create(
   {
     // This is the `schema` we just created.

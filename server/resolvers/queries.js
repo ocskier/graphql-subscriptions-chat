@@ -15,12 +15,10 @@ const queries = {
     me: async (parent, args, { req }) => {
       if (req.user) {
         console.log('Returning logged in user!');
-        const user = JSON.parse(JSON.stringify(req.user));
-        const cleanUser = Object.assign({}, user);
-        console.log(`Deleting password`);
-        delete cleanUser.password;
+        const user = Object.assign({}, req.user);
+        delete user._id;
         return {
-          success: cleanUser,
+          success: user,
           error: null,
         };
       } else {

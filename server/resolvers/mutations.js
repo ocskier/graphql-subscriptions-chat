@@ -6,7 +6,6 @@ const mutations = {
     postMessage: async (parent, { message: content }, { req }) => {
       console.log('Posting a chat message!');
       try {
-        console.log(req.user);
         const newMessage = await db.Message.create({
           ...content,
           user: req.user ? req.user._id : null,
@@ -32,15 +31,10 @@ const mutations = {
       try {
         const { user } = await authenticate('graphql-local', creds);
         await login(user);
-        const parsedUser = JSON.parse(JSON.stringify(user));
-        const cleanUser = Object.assign({}, parsedUser);
-        if (cleanUser) {
-          console.log(`Deleting password`);
-          delete cleanUser.password;
-        }
-        if (cleanUser) {
+        delete user._id;
+        if (user) {
           return {
-            success: cleanUser,
+            success: user,
             error: null,
           };
         } else {
