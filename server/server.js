@@ -16,8 +16,8 @@ import { SubscriptionServer } from 'subscriptions-transport-ws';
 
 import { connectToDB } from './db/connection.js';
 import passport from './middleware/passport.js';
-import typeDefs from './routes/schema.js';
-import resolvers from './routes/resolvers/index.js';
+import typeDefs from './typeDefs/schema.js';
+import resolvers from './resolvers/index.js';
 
 const PORT = process.env.PORT || 4000;
 

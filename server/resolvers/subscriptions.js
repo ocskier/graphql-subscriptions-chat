@@ -1,4 +1,4 @@
-import { pubsub } from '../../server.js';
+import { pubsub } from '../server.js';
 
 const subscriptions = {
   Subscription: {

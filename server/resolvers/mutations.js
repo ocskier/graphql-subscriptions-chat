@@ -1,5 +1,5 @@
-import db from '../../models/index.js';
-import { pubsub } from '../../server.js';
+import db from '../models/index.js';
+import { pubsub } from '../server.js';
 
 const mutations = {
   Mutation: {
