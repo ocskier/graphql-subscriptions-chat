@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { Button, Label } from 'semantic-ui-react';
 
@@ -9,7 +9,7 @@ import subscriptions from './utils/subscriptions';
 import { AuthModal } from './components/AuthModal';
 import { Chat } from './components/Chat';
 
-import { GlobalContext } from './context/store';
+import { useGlobalContext } from './context/store';
 import actions from './context/actions';
 
 import 'semantic-ui-css/semantic.min.css';
@@ -37,7 +37,7 @@ function App() {
   const {
     dispatch,
     state: { user, loggedIn },
-  } = useContext(GlobalContext);
+  } = useGlobalContext();
   const [open, setOpen] = useState(false);
   const {
     subscribeToMore,

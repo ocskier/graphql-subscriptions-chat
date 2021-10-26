@@ -1,8 +1,8 @@
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { Button, Checkbox, Container, Form, Icon } from 'semantic-ui-react';
 
-import { GlobalContext } from '../context/store';
+import { useGlobalContext } from '../context/store';
 import actions from '../context/actions';
 import mutations from '../utils/mutations';
 
@@ -26,7 +26,7 @@ const styles = {
 export const AuthForm = ({ error, setError, setOpen, type, setFormType }) => {
   const [checked, setChecked] = useState(false);
   const [formData, setFormData] = useState(emptyFormData);
-  const { dispatch } = useContext(GlobalContext);
+  const { dispatch } = useGlobalContext();
   const [register, { data: registerData, loading: loadingRegister }] =
     useMutation(REGISTER);
   const [login, { data: loginData, loading: loadingLogin }] =

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import { createContext, useContext, useEffect, useReducer } from 'react';
 import { useQuery } from '@apollo/client';
 
 import actions from '../context/actions';
@@ -7,7 +7,9 @@ import { reducer } from './reducer';
 
 const { ME } = queries;
 
-const GlobalContext = React.createContext(null);
+const GlobalContext = createContext(null);
+
+const useGlobalContext = () => useContext(GlobalContext);
 
 function GlobalProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, {
@@ -34,4 +36,4 @@ function GlobalProvider({ children }) {
   );
 }
 
-export { GlobalProvider, GlobalContext };
+export { GlobalProvider, useGlobalContext };
